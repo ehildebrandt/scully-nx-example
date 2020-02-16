@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "projects": {
+    "scully-nx-example": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/scully-nx-example",
+      "sourceRoot": "apps/scully-nx-example/src",
+      "prefix": "scully-nx-example",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/scully-nx-example",
+            "index": "apps/scully-nx-example/src/index.html",
+            "main": "apps/scully-nx-example/src/main.ts",
+            "polyfills": "apps/scully-nx-example/src/polyfills.ts",
+            "tsConfig": "apps/scully-nx-example/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/scully-nx-example/src/favicon.ico",
+              "apps/scully-nx-example/src/assets"
+            ],
+            "styles": ["apps/scully-nx-example/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/scully-nx-example/src/environments/environment.ts",
+                  "with": "apps/scully-nx-example/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "scully-nx-example:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "scully-nx-example:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "scully-nx-example:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/scully-nx-example/tsconfig.app.json",
+              "apps/scully-nx-example/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/scully-nx-example/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/scully-nx-example/jest.config.js",
+            "tsConfig": "apps/scully-nx-example/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/scully-nx-example/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "scully-nx-example-e2e": {
+      "root": "apps/scully-nx-example-e2e",
+      "sourceRoot": "apps/scully-nx-example-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/scully-nx-example-e2e/cypress.json",
+            "tsConfig": "apps/scully-nx-example-e2e/tsconfig.e2e.json",
+            "devServerTarget": "scully-nx-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "scully-nx-example:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/scully-nx-example-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/scully-nx-example-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "scully-nx-example"
+}

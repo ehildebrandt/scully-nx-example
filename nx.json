@@ -1,0 +1,22 @@
+{
+  "npmScope": "scully-nx-example",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "scully-nx-example": {
+      "tags": []
+    },
+    "scully-nx-example-e2e": {
+      "tags": [],
+      "implicitDependencies": ["scully-nx-example"]
+    }
+  }
+}
